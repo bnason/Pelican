@@ -10,3 +10,5 @@ xcuserdata
 
 # OSX
 .DS_Store
+
+._*

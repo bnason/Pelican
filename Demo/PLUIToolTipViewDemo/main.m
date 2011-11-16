@@ -1,6 +1,6 @@
 //
 //  main.m
-//  NTUIToolTipViewDemo
+//  PLUIToolTipViewDemo
 //
 //  Created by Brandon Nason on 11/7/11.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.

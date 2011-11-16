@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../NTiOSLibrary.xcodeproj">
+      location = "group:../Pelican.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:NTUIToolTipViewDemo.xcodeproj">
+      location = "group:PLUIToolTipViewDemo.xcodeproj">
    </FileRef>
 </Workspace>
