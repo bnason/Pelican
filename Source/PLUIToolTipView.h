@@ -1,4 +1,4 @@
-// Copyright (c) 2011, Nason Tech.
+// Copyright (c) 2011, Brandon Nason.
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -23,14 +23,14 @@
 //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 
-#import "NTCGGeometry.h"
+#import "PLCGGeometry.h"
 
-/** Use the NTUIToolTipView class to display a descriptive message about another visual element.
+/** Use the PLUIToolTipView class to display a descriptive message about another visual element.
  */
-@interface NTUIToolTipView : UIView
+@interface PLUIToolTipView : UIView
 
-typedef NSUInteger NTUIToolTipViewOrientation;
-typedef NSUInteger NTUIToolTipViewArrowPosition;
+typedef NSUInteger PLUIToolTipViewOrientation;
+typedef NSUInteger PLUIToolTipViewArrowPosition;
 
 ///-----------------------------------------------------------------------------
 /// @name Creating Tool Tip Views
@@ -74,19 +74,19 @@ typedef NSUInteger NTUIToolTipViewArrowPosition;
 /** The receiver's text color. */
 @property (nonatomic, retain) UIColor *textColor;
 /** The spacing between the border and text. */
-@property (nonatomic, assign) NTCGOffset padding;
+@property (nonatomic, assign) PLCGRectOffset padding;
 /** The spacing between the tooltip and window. */
-@property (nonatomic, assign) NTCGOffset margin;
+@property (nonatomic, assign) PLCGRectOffset margin;
 /** The size of the arrow. */
 @property (nonatomic, assign) CGSize arrowSize;
 /** The radius used to draw the tooltip. */
 @property (nonatomic, assign) NSInteger cornerRadius;
 /** The orientation of the tooltip around the view it's pointing at. */
-@property (nonatomic, assign) NTUIToolTipViewOrientation orientation;
-/** The order that NTUIToolTipViewOrientationAuto uses to auto orient. */
+@property (nonatomic, assign) PLUIToolTipViewOrientation orientation;
+/** The order that PLUIToolTipViewOrientationAuto uses to auto orient. */
 @property (nonatomic, retain) NSArray *orientationOrder;
 /** The position of the arrow. */
-@property (nonatomic, assign) NTUIToolTipViewArrowPosition arrowPosition;
+@property (nonatomic, assign) PLUIToolTipViewArrowPosition arrowPosition;
 /** Determines if the receiver will shrink to maintain its visibility on screen. */
 @property (nonatomic, assign) BOOL shrinkToFit;
 /** The minimum amount the receiver will shrink when adjusting itself to remain on screen. */
@@ -116,18 +116,18 @@ typedef NSUInteger NTUIToolTipViewArrowPosition;
 
 enum
 {
-	NTUIToolTipViewOrientationAuto,
-	NTUIToolTipViewOrientationTop,
-	NTUIToolTipViewOrientationBottom,
-	NTUIToolTipViewOrientationLeft,
-	NTUIToolTipViewOrientationRight,
-	NTUIToolTipViewOrientationNone,
+	PLUIToolTipViewOrientationAuto,
+	PLUIToolTipViewOrientationTop,
+	PLUIToolTipViewOrientationBottom,
+	PLUIToolTipViewOrientationLeft,
+	PLUIToolTipViewOrientationRight,
+	PLUIToolTipViewOrientationNone,
 };
 
 enum
 {
-	NTUIToolTipViewArrowPositionAuto,
-	NTUIToolTipViewArrowPositionFixed,
+	PLUIToolTipViewArrowPositionAuto,
+	PLUIToolTipViewArrowPositionFixed,
 };
 
 - (BOOL)isWordInString:(NSString *)string WiderThanConstraint:(CGSize)constraint withFont:(UIFont *)font;
@@ -135,8 +135,8 @@ enum
 - (void)drawRoundedRectWithArrow:(CGRect)rect inContext:(CGContextRef)context withRadius:(CGFloat)radius pointingAtFrame:(CGRect)frame;
 - (void)animateToSize:(NSString *)id finished:(NSNumber *)finished context:(void *)context;
 
-- (NSArray *)calculateOriginAndArrowPlacementForOrientation:(NTUIToolTipViewOrientation)orientation;
-- (CGRect)calculateFrameForOrientation:(NTUIToolTipViewOrientation)orientation;
-- (NTUIToolTipViewOrientation)calculateOrientation;
+- (NSArray *)calculateOriginAndArrowPlacementForOrientation:(PLUIToolTipViewOrientation)orientation;
+- (CGRect)calculateFrameForOrientation:(PLUIToolTipViewOrientation)orientation;
+- (PLUIToolTipViewOrientation)calculateOrientation;
 
 @end

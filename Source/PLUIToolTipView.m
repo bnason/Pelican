@@ -1,4 +1,4 @@
-// Copyright (c) 2011, Nason Tech.
+// Copyright (c) 2011, Brandon Nason.
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -23,10 +23,10 @@
 //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 
-#import "NTUIToolTipView.h"
+#import "PLUIToolTipView.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation NTUIToolTipView
+@implementation PLUIToolTipView
 {
 	UILabel *titleLabel;
 	UILabel *messageLabel;
@@ -60,15 +60,15 @@
 		self.backgroundColor = [UIColor clearColor];
 		self.fillColor = [UIColor colorWithRed:11/255.0 green:27/255.0 blue:68/255.0 alpha:0.80];
 		self.borderColor = [UIColor colorWithRed:223/255.0 green:225/255.0 blue:230/255.0 alpha:1.0];
-		self.padding = NTCGOffsetMake(15, 15, 15, 15);
-		self.margin = NTCGOffsetMake(10, 10, 10, 10);
+		self.padding = PLCGOffsetMake(15, 15, 15, 15);
+		self.margin = PLCGOffsetMake(10, 10, 10, 10);
 		self.arrowSize = CGSizeMake(20, 20);
-		self.orientation = NTUIToolTipViewOrientationAuto;
+		self.orientation = PLUIToolTipViewOrientationAuto;
 		self.cornerRadius = 8;
-		self.orientationOrder = [[NSArray alloc] initWithObjects:[NSNumber numberWithUnsignedInt:NTUIToolTipViewOrientationTop],
-																 [NSNumber numberWithUnsignedInt:NTUIToolTipViewOrientationBottom],
-																 [NSNumber numberWithUnsignedInt:NTUIToolTipViewOrientationLeft],
-																 [NSNumber numberWithUnsignedInt:NTUIToolTipViewOrientationRight], nil];
+		self.orientationOrder = [[NSArray alloc] initWithObjects:[NSNumber numberWithUnsignedInt:PLUIToolTipViewOrientationTop],
+																 [NSNumber numberWithUnsignedInt:PLUIToolTipViewOrientationBottom],
+																 [NSNumber numberWithUnsignedInt:PLUIToolTipViewOrientationLeft],
+																 [NSNumber numberWithUnsignedInt:PLUIToolTipViewOrientationRight], nil];
 		self.shrinkToFit = YES;
 		self.maximumShrink = 1;
 		currentShrinkValue = 0;
@@ -178,7 +178,7 @@
 }
 
 // Frame calculations
-- (NSArray *)calculateOriginAndArrowPlacementForOrientation:(NTUIToolTipViewOrientation)orientation
+- (NSArray *)calculateOriginAndArrowPlacementForOrientation:(PLUIToolTipViewOrientation)orientation
 {
 	NSArray *array = [[[NSArray alloc] init] autorelease];
 	return array;
@@ -211,18 +211,18 @@
 	return width;
 }
 
-- (CGRect)calculateFrameForOrientation:(NTUIToolTipViewOrientation)orientation
+- (CGRect)calculateFrameForOrientation:(PLUIToolTipViewOrientation)orientation
 {
 	CGRect frame = CGRectNull;
 
-	if (orientation == NTUIToolTipViewOrientationTop)
+	if (orientation == PLUIToolTipViewOrientationTop)
 	{
-		CGFloat frameMaxWidth = self.superview.frame.size.width - NTCGOffsetGetWidth(self.margin);
+		CGFloat frameMaxWidth = self.superview.frame.size.width - PLCGOffsetGetWidth(self.margin);
 		CGFloat miny = CGRectGetMinY(self.pointAt);
-		CGFloat frameMaxHeight = miny - NTCGOffsetGetHeight(self.margin);
+		CGFloat frameMaxHeight = miny - PLCGOffsetGetHeight(self.margin);
 
-		CGSize contentsMaxSize = CGSizeMake(frameMaxWidth - NTCGOffsetGetWidth(self.padding),
-											frameMaxHeight - NTCGOffsetGetHeight(self.padding) - self.arrowSize.height);
+		CGSize contentsMaxSize = CGSizeMake(frameMaxWidth - PLCGOffsetGetWidth(self.padding),
+											frameMaxHeight - PLCGOffsetGetHeight(self.padding) - self.arrowSize.height);
 		CGSize titleMinSize = [self.title sizeWithFont:titleLabel.font
 									 constrainedToSize:contentsMaxSize
 										 lineBreakMode:titleLabel.lineBreakMode];
@@ -234,21 +234,21 @@
 		if (messageMinWordSize > messageMinSize.width)
 			messageMinSize.width = messageMinWordSize;
 
-		CGFloat frameWidth = fmaxf(titleMinSize.width, messageMinSize.width) + NTCGOffsetGetWidth(self.padding);
-		CGFloat frameHeight = fmaxf(titleMinSize.height, messageMinSize.height) + NTCGOffsetGetHeight(self.padding) + self.arrowSize.height;
+		CGFloat frameWidth = fmaxf(titleMinSize.width, messageMinSize.width) + PLCGOffsetGetWidth(self.padding);
+		CGFloat frameHeight = fmaxf(titleMinSize.height, messageMinSize.height) + PLCGOffsetGetHeight(self.padding) + self.arrowSize.height;
 
 		CGFloat frameLeft = CGRectGetMidX(self.pointAt) - frameWidth / 2;
 		CGFloat frameTop = CGRectGetMinY(self.pointAt) - frameHeight;
 
 		frame = CGRectMake(frameLeft, frameTop, frameWidth, frameHeight);
 	}
-	else if (orientation == NTUIToolTipViewOrientationBottom)
+	else if (orientation == PLUIToolTipViewOrientationBottom)
 	{
-		CGFloat frameMaxWidth = self.superview.frame.size.width - NTCGOffsetGetWidth(self.margin);
+		CGFloat frameMaxWidth = self.superview.frame.size.width - PLCGOffsetGetWidth(self.margin);
 		CGFloat frameMaxHeight = self.superview.frame.size.height - CGRectGetMaxY(self.pointAt) - self.margin.bottom;
 
-		CGSize contentsMaxSize = CGSizeMake(frameMaxWidth - NTCGOffsetGetWidth(self.padding),
-											frameMaxHeight - NTCGOffsetGetHeight(self.padding) - self.arrowSize.height);
+		CGSize contentsMaxSize = CGSizeMake(frameMaxWidth - PLCGOffsetGetWidth(self.padding),
+											frameMaxHeight - PLCGOffsetGetHeight(self.padding) - self.arrowSize.height);
 		CGSize titleMinSize = [self.title sizeWithFont:titleLabel.font
 									 constrainedToSize:contentsMaxSize
 										 lineBreakMode:titleLabel.lineBreakMode];
@@ -256,21 +256,21 @@
 										 constrainedToSize:contentsMaxSize
 											 lineBreakMode:messageLabel.lineBreakMode];
 
-		CGFloat frameWidth = fmaxf(titleMinSize.width, messageMinSize.width) + NTCGOffsetGetWidth(self.padding);
-		CGFloat frameHeight = fmaxf(titleMinSize.height, messageMinSize.height) + NTCGOffsetGetHeight(self.padding) + self.arrowSize.height;
+		CGFloat frameWidth = fmaxf(titleMinSize.width, messageMinSize.width) + PLCGOffsetGetWidth(self.padding);
+		CGFloat frameHeight = fmaxf(titleMinSize.height, messageMinSize.height) + PLCGOffsetGetHeight(self.padding) + self.arrowSize.height;
 
 		CGFloat frameLeft = CGRectGetMidX(self.pointAt) - frameWidth / 2;
 		CGFloat frameTop = CGRectGetMaxY(self.pointAt);
 
 		frame = CGRectMake(frameLeft, frameTop, frameWidth, frameHeight);
 	}
-	else if (orientation == NTUIToolTipViewOrientationLeft)
+	else if (orientation == PLUIToolTipViewOrientationLeft)
 	{
 		CGFloat frameMaxWidth = CGRectGetMinX(self.pointAt) - self.margin.left;
-		CGFloat frameMaxHeight = self.superview.frame.size.height - NTCGOffsetGetHeight(self.margin);
+		CGFloat frameMaxHeight = self.superview.frame.size.height - PLCGOffsetGetHeight(self.margin);
 
-		CGSize contentsMaxSize = CGSizeMake(frameMaxWidth - NTCGOffsetGetWidth(self.padding) - self.arrowSize.height,
-											frameMaxHeight - NTCGOffsetGetHeight(self.padding));
+		CGSize contentsMaxSize = CGSizeMake(frameMaxWidth - PLCGOffsetGetWidth(self.padding) - self.arrowSize.height,
+											frameMaxHeight - PLCGOffsetGetHeight(self.padding));
 		CGSize titleMinSize = [self.title sizeWithFont:titleLabel.font
 									 constrainedToSize:contentsMaxSize
 										 lineBreakMode:titleLabel.lineBreakMode];
@@ -278,21 +278,21 @@
 										 constrainedToSize:contentsMaxSize
 											 lineBreakMode:messageLabel.lineBreakMode];
 
-		CGFloat frameWidth = fmaxf(titleMinSize.width, messageMinSize.width) + NTCGOffsetGetWidth(self.padding) + self.arrowSize.height;
-		CGFloat frameHeight = fmaxf(titleMinSize.height, messageMinSize.height) + NTCGOffsetGetHeight(self.padding);
+		CGFloat frameWidth = fmaxf(titleMinSize.width, messageMinSize.width) + PLCGOffsetGetWidth(self.padding) + self.arrowSize.height;
+		CGFloat frameHeight = fmaxf(titleMinSize.height, messageMinSize.height) + PLCGOffsetGetHeight(self.padding);
 
 		CGFloat frameLeft = CGRectGetMinX(self.pointAt) - frameWidth;
 		CGFloat frameTop = CGRectGetMidY(self.pointAt) - frameHeight / 2;
 		
 		frame = CGRectMake(frameLeft, frameTop, frameWidth, frameHeight);
 	}
-	else if (orientation == NTUIToolTipViewOrientationRight)
+	else if (orientation == PLUIToolTipViewOrientationRight)
 	{
 		CGFloat frameMaxWidth = self.superview.frame.size.width - CGRectGetMaxX(self.pointAt) - self.margin.right;
-		CGFloat frameMaxHeight = self.superview.frame.size.height - NTCGOffsetGetHeight(self.margin);
+		CGFloat frameMaxHeight = self.superview.frame.size.height - PLCGOffsetGetHeight(self.margin);
 
 		CGSize contentsMaxSize = CGSizeMake(frameMaxWidth - self.margin.right,
-											frameMaxHeight - NTCGOffsetGetHeight(self.padding));
+											frameMaxHeight - PLCGOffsetGetHeight(self.padding));
 		CGSize titleMinSize = [self.title sizeWithFont:titleLabel.font
 									 constrainedToSize:contentsMaxSize
 										 lineBreakMode:titleLabel.lineBreakMode];
@@ -300,8 +300,8 @@
 										 constrainedToSize:contentsMaxSize
 											 lineBreakMode:messageLabel.lineBreakMode];
 
-		CGFloat frameWidth = fmaxf(titleMinSize.width, messageMinSize.width) + NTCGOffsetGetWidth(self.padding) + self.arrowSize.height;
-		CGFloat frameHeight = fmaxf(titleMinSize.height, messageMinSize.height) + NTCGOffsetGetHeight(self.padding);
+		CGFloat frameWidth = fmaxf(titleMinSize.width, messageMinSize.width) + PLCGOffsetGetWidth(self.padding) + self.arrowSize.height;
+		CGFloat frameHeight = fmaxf(titleMinSize.height, messageMinSize.height) + PLCGOffsetGetHeight(self.padding);
 
 		CGFloat frameLeft = CGRectGetMaxX(self.pointAt);
 		CGFloat frameTop = CGRectGetMidY(self.pointAt) - frameHeight / 2;
@@ -312,15 +312,15 @@
 	return frame;
 }
 
-- (NTUIToolTipViewOrientation)calculateOrientation
+- (PLUIToolTipViewOrientation)calculateOrientation
 {
-	if (self.orientation != NTUIToolTipViewOrientationAuto)
+	if (self.orientation != PLUIToolTipViewOrientationAuto)
 		return self.orientation;
 
-	CGRect topPlacementFrame = [self calculateFrameForOrientation:NTUIToolTipViewOrientationTop];
-	CGRect bottomPlacementFrame = [self calculateFrameForOrientation:NTUIToolTipViewOrientationBottom];
-	CGRect leftPlacementFrame = [self calculateFrameForOrientation:NTUIToolTipViewOrientationLeft];
-	CGRect rightPlacementFrame = [self calculateFrameForOrientation:NTUIToolTipViewOrientationRight];
+	CGRect topPlacementFrame = [self calculateFrameForOrientation:PLUIToolTipViewOrientationTop];
+	CGRect bottomPlacementFrame = [self calculateFrameForOrientation:PLUIToolTipViewOrientationBottom];
+	CGRect leftPlacementFrame = [self calculateFrameForOrientation:PLUIToolTipViewOrientationLeft];
+	CGRect rightPlacementFrame = [self calculateFrameForOrientation:PLUIToolTipViewOrientationRight];
 
 	CGFloat topOffset = CGRectGetMidX(topPlacementFrame) - CGRectGetMidX(self.pointAt);
 	CGFloat bottomOffset = CGRectGetMidX(bottomPlacementFrame) - CGRectGetMidX(self.pointAt);
@@ -332,43 +332,43 @@
 																												[NSNumber numberWithFloat:fabsf(leftOffset)],
 																												[NSNumber numberWithFloat:fabsf(rightOffset)], nil]
 																			  forKeys:[NSArray arrayWithObjects:
-																												[NSNumber numberWithUnsignedInteger:NTUIToolTipViewOrientationRight],
-																												[NSNumber numberWithUnsignedInteger:NTUIToolTipViewOrientationLeft],
-																												[NSNumber numberWithUnsignedInteger:NTUIToolTipViewOrientationBottom],
-																												[NSNumber numberWithUnsignedInteger:NTUIToolTipViewOrientationTop],
+																												[NSNumber numberWithUnsignedInteger:PLUIToolTipViewOrientationRight],
+																												[NSNumber numberWithUnsignedInteger:PLUIToolTipViewOrientationLeft],
+																												[NSNumber numberWithUnsignedInteger:PLUIToolTipViewOrientationBottom],
+																												[NSNumber numberWithUnsignedInteger:PLUIToolTipViewOrientationTop],
 																												nil]];
 	NSArray *orientationsOrderedByOffset = [offsetsAbsolute keysSortedByValueUsingSelector:@selector(compare:)];
 
 	CGRect superFrameMinusMargin = CGRectMake(self.superview.frame.origin.x + self.margin.left,
 											  self.superview.frame.origin.y + self.margin.top + UIApplication.sharedApplication.statusBarFrame.size.height,
-											  self.superview.frame.size.width - NTCGOffsetGetWidth(self.margin),
-											  self.superview.frame.size.height - NTCGOffsetGetHeight(self.margin) - UIApplication.sharedApplication.statusBarFrame.size.height);
+											  self.superview.frame.size.width - PLCGOffsetGetWidth(self.margin),
+											  self.superview.frame.size.height - PLCGOffsetGetHeight(self.margin) - UIApplication.sharedApplication.statusBarFrame.size.height);
 	for (NSNumber *orientationNumber in orientationsOrderedByOffset)
 	{
-		NTUIToolTipViewOrientation orientation = [orientationNumber unsignedIntValue];
-		if (orientation == NTUIToolTipViewOrientationTop && !CGRectIsNull(topPlacementFrame))
+		PLUIToolTipViewOrientation orientation = [orientationNumber unsignedIntValue];
+		if (orientation == PLUIToolTipViewOrientationTop && !CGRectIsNull(topPlacementFrame))
 		{
 			CGRect clippedRect = CGRectIntersection(superFrameMinusMargin, topPlacementFrame);
 			if (CGRectEqualToRect(clippedRect, topPlacementFrame))
-				return NTUIToolTipViewOrientationTop;
+				return PLUIToolTipViewOrientationTop;
 		}
-		else if (orientation == NTUIToolTipViewOrientationBottom && !CGRectIsNull(bottomPlacementFrame))
+		else if (orientation == PLUIToolTipViewOrientationBottom && !CGRectIsNull(bottomPlacementFrame))
 		{
 			CGRect clippedRect = CGRectIntersection(superFrameMinusMargin, bottomPlacementFrame);
 			if (CGRectEqualToRect(clippedRect, bottomPlacementFrame))
-				return NTUIToolTipViewOrientationBottom;
+				return PLUIToolTipViewOrientationBottom;
 		}
-		else if (orientation == NTUIToolTipViewOrientationLeft && !CGRectIsNull(leftPlacementFrame))
+		else if (orientation == PLUIToolTipViewOrientationLeft && !CGRectIsNull(leftPlacementFrame))
 		{
 			CGRect clippedRect = CGRectIntersection(superFrameMinusMargin, leftPlacementFrame);
 			if (CGRectEqualToRect(clippedRect, leftPlacementFrame))
-				return NTUIToolTipViewOrientationLeft;
+				return PLUIToolTipViewOrientationLeft;
 		}
-		else if (orientation == NTUIToolTipViewOrientationRight && !CGRectIsNull(rightPlacementFrame))
+		else if (orientation == PLUIToolTipViewOrientationRight && !CGRectIsNull(rightPlacementFrame))
 		{
 			CGRect clippedRect = CGRectIntersection(superFrameMinusMargin, rightPlacementFrame);
 			if (CGRectEqualToRect(clippedRect, rightPlacementFrame))
-				return NTUIToolTipViewOrientationRight;
+				return PLUIToolTipViewOrientationRight;
 		}
 	}
 
@@ -381,18 +381,18 @@
 		return [self calculateOrientation];
 	}
 
-	return NTUIToolTipViewOrientationNone;
+	return PLUIToolTipViewOrientationNone;
 }
 
 - (void)layoutSubviews
 {
-	NTUIToolTipViewOrientation orientation = [self calculateOrientation];
+	PLUIToolTipViewOrientation orientation = [self calculateOrientation];
 
-	CGSize contentsMaxSize = CGSizeMake(self.bounds.size.width - NTCGOffsetGetWidth(self.padding),
-										self.bounds.size.height - NTCGOffsetGetHeight(self.padding));
-	if (orientation == NTUIToolTipViewOrientationTop || orientation == NTUIToolTipViewOrientationBottom)
+	CGSize contentsMaxSize = CGSizeMake(self.bounds.size.width - PLCGOffsetGetWidth(self.padding),
+										self.bounds.size.height - PLCGOffsetGetHeight(self.padding));
+	if (orientation == PLUIToolTipViewOrientationTop || orientation == PLUIToolTipViewOrientationBottom)
 		contentsMaxSize.height -= self.arrowSize.height;
-	else if (orientation == NTUIToolTipViewOrientationLeft || orientation == NTUIToolTipViewOrientationRight)
+	else if (orientation == PLUIToolTipViewOrientationLeft || orientation == PLUIToolTipViewOrientationRight)
 		contentsMaxSize.width -= self.arrowSize.height;
 
 	if ([self.title isEqualToString:@""] || self.title != nil)
@@ -405,9 +405,9 @@
 									   titleMinSize.width,
 									   titleMinSize.height);
 
-		if (orientation == NTUIToolTipViewOrientationBottom)
+		if (orientation == PLUIToolTipViewOrientationBottom)
 			titleFrame.origin.y += self.arrowSize.height;
-		else if (orientation == NTUIToolTipViewOrientationRight)
+		else if (orientation == PLUIToolTipViewOrientationRight)
 			titleFrame.origin.x += self.arrowSize.height;
 
 		titleLabel.frame = titleFrame;
@@ -428,9 +428,9 @@
 									     messageMinSize.width,
 									     messageMinSize.height);
 
-		if (orientation == NTUIToolTipViewOrientationBottom)
+		if (orientation == PLUIToolTipViewOrientationBottom)
 			messageFrame.origin.y += self.arrowSize.height;
-		else if (orientation == NTUIToolTipViewOrientationRight)
+		else if (orientation == PLUIToolTipViewOrientationRight)
 			messageFrame.origin.x += self.arrowSize.height;
 
 		messageLabel.frame = messageFrame;
@@ -455,15 +455,15 @@
 
 	// Create new container rect
 	CGRect containerRect = CGRectInset(rect, 2, 2);
-	NTUIToolTipViewOrientation orientation = [self calculateOrientation];
-	if (orientation == NTUIToolTipViewOrientationTop || orientation == NTUIToolTipViewOrientationBottom)
+	PLUIToolTipViewOrientation orientation = [self calculateOrientation];
+	if (orientation == PLUIToolTipViewOrientationTop || orientation == PLUIToolTipViewOrientationBottom)
 		containerRect.size.height -= self.arrowSize.height;
-	else if (orientation == NTUIToolTipViewOrientationLeft || orientation == NTUIToolTipViewOrientationRight)
+	else if (orientation == PLUIToolTipViewOrientationLeft || orientation == PLUIToolTipViewOrientationRight)
 		containerRect.size.width -= self.arrowSize.height;
 
-	if (orientation == NTUIToolTipViewOrientationBottom)
+	if (orientation == PLUIToolTipViewOrientationBottom)
 		CGContextTranslateCTM(context, 0, self.arrowSize.height);
-	else if (orientation == NTUIToolTipViewOrientationRight)
+	else if (orientation == PLUIToolTipViewOrientationRight)
 		CGContextTranslateCTM(context, self.arrowSize.height, 0);
 
 	// Draw shape
@@ -512,12 +512,12 @@
 	CGFloat maxy = CGRectGetMaxY(rect);
 
 	NSUInteger orientationCalculated;
-	if (self.orientation != NTUIToolTipViewOrientationAuto)
+	if (self.orientation != PLUIToolTipViewOrientationAuto)
 		orientationCalculated = self.orientation;
 	else
 		orientationCalculated = [self calculateOrientation];
 
-	if (orientationCalculated == NTUIToolTipViewOrientationBottom)
+	if (orientationCalculated == PLUIToolTipViewOrientationBottom)
 	{
 		CGPoint arrowPoint = CGPointMake(midx, miny);
 
@@ -530,7 +530,7 @@
 
 	CGContextAddArc(context, CGRectGetMaxX(roundedRect), CGRectGetMinY(roundedRect), self.cornerRadius, -M_PI_2, 0, NO);
 
-	if (orientationCalculated == NTUIToolTipViewOrientationLeft)
+	if (orientationCalculated == PLUIToolTipViewOrientationLeft)
 	{
 		CGPoint arrowPoint = CGPointMake(maxx, midy);
 
@@ -541,7 +541,7 @@
 
 	CGContextAddArc(context, CGRectGetMaxX(roundedRect), CGRectGetMaxY(roundedRect), self.cornerRadius, 0, M_PI_2, NO);
 
-	if (orientationCalculated == NTUIToolTipViewOrientationTop)
+	if (orientationCalculated == PLUIToolTipViewOrientationTop)
 	{
 		CGPoint arrowPoint = CGPointMake(midx, maxy);
 
@@ -552,7 +552,7 @@
 
 	CGContextAddArc(context, CGRectGetMinX(roundedRect), CGRectGetMaxY(roundedRect), self.cornerRadius, M_PI_2, M_PI, NO);
 
-	if (orientationCalculated == NTUIToolTipViewOrientationRight)
+	if (orientationCalculated == PLUIToolTipViewOrientationRight)
 	{
 		CGPoint arrowPoint = CGPointMake(minx, midy);
 

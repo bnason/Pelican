@@ -1,4 +1,4 @@
-// Copyright (c) 2011, Nason Tech.
+// Copyright (c) 2011, Brandon Nason.
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -23,30 +23,22 @@
 //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 
-#import "NTCGGeometry.h"
+#import <UIKit/UIKit.h>
 
-NTCGOffset NTCGOffsetMake(CGFloat top, CGFloat right, CGFloat bottom, CGFloat left)
+/** PLCGeometry defines supplemental structors for geometric primiatives and functions that operator on them.
+ */
+
+struct PLCGRectOffset
 {
-	NTCGOffset offset;
-	offset.top = top;
-	offset.bottom = bottom;
-	offset.right = right;
-	offset.left = left;
+	CGFloat top;
+	CGFloat bottom;
+	CGFloat left;
+	CGFloat right;
+};
+typedef struct PLCGRectOffset PLCGRectOffset;
 
-	return offset;
-}
+PLCGRectOffset PLCGOffsetMake(CGFloat top, CGFloat right, CGFloat bottom, CGFloat left);
+CGFloat PLCGOffsetGetWidth(PLCGRectOffset offset);
+CGFloat PLCGOffsetGetHeight(PLCGRectOffset offset);
 
-CGFloat NTCGOffsetGetWidth(NTCGOffset offset)
-{
-	return offset.left + offset.right;
-}
-
-CGFloat NTCGOffsetGetHeight(NTCGOffset offset)
-{
-	return offset.top + offset.bottom;
-}
-
-CGPoint NTCGRectGetCenter(CGRect rect)
-{
-	return CGPointMake(rect.size.width / 2, rect.size.height / 2);
-}
+CGPoint PLCGRectGetCenter(CGRect rect);
